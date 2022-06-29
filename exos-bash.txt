@@ -1,0 +1,13 @@
+#!/usr/bin/env python
+#
+# On EXOS create exos-bash.py.
+##################################
+import os
+
+if __name__ == "__main__":
+        os.system("/bin/bash")
+        exit(0)
+##################################
+# 
+# EXOS> run script exos-bash.py
+# Now you can use tcpdump and other developers tools
