@@ -1,0 +1,36 @@
+entry traffic_53_quantity{
+if match all{
+destination-address <ip_address>;
+}then{
+count traffic_redpill_53;
+}
+}
+
+entry traffic_54_quantity{
+if match all{
+destination-address <ip_address>;
+}then{
+count traffic_redpill_54;
+}
+}
+
+
+entry traffic_redpill_53{
+if{
+count traffic_redpill_53 > 500000;
+period 1;
+}then{
+syslog threshold_exceeded info;
+cli "create snmp trap severity critical event DDoS_redpill DDoS_redpill"
+}
+}
+
+entry traffic_redpill_54{
+if{
+count traffic_redpill_54 > 500000;
+period 1;
+}then{
+syslog threshold_exceeded info;
+cli "create snmp trap severity critical event DDoS_redpill DDoS_redpill"
+}
+}
