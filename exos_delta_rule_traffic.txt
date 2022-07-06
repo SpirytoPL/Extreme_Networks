@@ -1,0 +1,19 @@
+entry log_notify_53{
+if match all{
+delta traffic_in > 130000;
+period 5;
+}then{
+syslog possible_ddos info;
+cli "create snmp trap severity critical event DDoS_redpill DDoS_redpill"
+}
+}
+
+entry log_notify_54{
+if match all{
+delta traffic_in > 100000;
+period 5;
+}then{
+syslog possible_ddos_150_254_3_54 info;
+cli "create snmp trap severity critical event DDoS_redpill DDoS_redpill"
+}
+}
