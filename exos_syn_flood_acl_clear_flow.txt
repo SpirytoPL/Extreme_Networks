@@ -1,0 +1,30 @@
+entry acl_syn {
+if {
+protocol tcp_flags SYN;
+} then {
+count TcpSynCounter;
+}
+}
+
+entry acl_tcp {
+if {
+protocol tcp;
+} then {
+count TcpCounter;
+}
+}
+
+entry cflow_delta_ratio_rule_example
+if
+{ delta-ratio TcpSynCounter TcpCounter > 1 ;
+period 2;
+min-value 100;
+}
+then {
+syslog "Syn attack on port $port is detected" WARN;
+deny acl_syn;
+} else {
+syslog "Syn attack on port $port is no longer detected" WARN;
+permit acl_syn;
+}
+}
